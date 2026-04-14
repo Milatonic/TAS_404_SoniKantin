@@ -36,11 +36,6 @@ function formatPrice(price) {
   return price ? price.trim() : "-";
 }
 
-function normalizeImage(url) {
-  // For now, use placeholder since Google Drive images may not load
-  return "https://via.placeholder.com/360x220?text=Produk+Gambar";
-}
-
 function setTheme(category) {
   document.body.classList.remove("theme-all", "theme-makanan", "theme-minuman");
   if (category === "Makanan") {
@@ -71,7 +66,7 @@ function renderProduk(produkItems) {
 
         return `
         <article class="card product-card ${categoryClass}">
-          <img src="${normalizeImage(item.produk_image)}" alt="${item.produk_name.trim()}" loading="lazy">
+          <img src="$(item.produk_image}" alt="${item.produk_name.trim()}" loading="lazy">
           <div class="card-content">
             <h3>${item.produk_name.trim()}</h3>
             <p class="product-meta">Kategori: ${item.produk_category}</p>
