@@ -9,28 +9,68 @@ const welcomeMessage = document.getElementById("welcome-message");
 let allProduk = [];
 
 if (splashScreen) {
+  const emojiArray = ['🍕', '🍔', '🍟', '🍰', '☕', '🥤', '🍦', '🍪'];
+  let emojiIndex = 0;
+  const storeIcons = splashScreen.querySelectorAll('.store-emoji');
+  if (storeIcons.length) {
+    setInterval(() => {
+      emojiIndex = (emojiIndex + 1) % emojiArray.length;
+      storeIcons.forEach(icon => {
+        icon.textContent = emojiArray[emojiIndex];
+      });
+    }, 400);
+  }
+
   setTimeout(() => {
     splashScreen.classList.add("splash-hidden");
-    // Langsung tampilkan welcome setelah splash hilang
-    welcomeMessage.classList.add("show");
-    // Tunggu 2 detik lalu hilangkan welcome
-    setTimeout(() => {
-      welcomeMessage.classList.remove("show");
-    }, 2000);
+    showWelcomeMessage();
   }, 4000);
 
-  // Klik logo untuk langsung masuk
   const logoBubble = splashScreen.querySelector('.logo-bubble');
   if (logoBubble) {
     logoBubble.addEventListener('click', () => {
       triggerConfetti();
       splashScreen.classList.add("splash-hidden");
-      // Skip welcome jika klik
-      setTimeout(() => {
-        welcomeMessage.classList.remove("show");
-      }, 0);
+      showWelcomeMessage();
     });
   }
+}
+
+function showWelcomeMessage() {
+  const welcomeLetters = document.getElementById('welcome-letters');
+  const welcomeEmojis = document.getElementById('welcome-emojis');
+  const text = 'Selamat datang di Warung Bu Soni';
+  const emojiArray = ['🍕', '🍔', '🍟', '☕', '🥤', '🍦'];
+
+  if (!welcomeLetters || !welcomeEmojis) {
+    welcomeMessage.classList.add('show');
+    setTimeout(() => welcomeMessage.classList.remove('show'), 2000);
+    return;
+  }
+
+  welcomeLetters.innerHTML = '';
+  welcomeEmojis.innerHTML = '';
+  welcomeMessage.classList.add('show');
+
+  text.split('').forEach((char, index) => {
+    const letterEl = document.createElement('span');
+    letterEl.textContent = char;
+    letterEl.className = 'welcome-letter';
+    letterEl.style.animationDelay = `${index * 0.09}s`;
+    welcomeLetters.appendChild(letterEl);
+  });
+
+  emojiArray.forEach((emoji, index) => {
+    const emojiEl = document.createElement('span');
+    emojiEl.textContent = emoji;
+    emojiEl.className = 'welcome-emoji-block';
+    emojiEl.style.animationDelay = `${0.4 + index * 0.12}s`;
+    welcomeEmojis.appendChild(emojiEl);
+  });
+
+  setTimeout(() => {
+    welcomeMessage.classList.remove('show');
+  }, 2800);
 }
 
 function setActiveTab(targetId) {
