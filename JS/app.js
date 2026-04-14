@@ -196,7 +196,6 @@ function showProductDetail(product) {
   `;
 
   productModal.classList.remove('hidden');
-  triggerConfetti();
 
   // Handle add to cart button
   const addBtn = productModalBody.querySelector('.product-add-button');

@@ -55,6 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function showToastNotification(productName) {
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+      <span class="toast-icon">✅</span>
+      <span>${productName} ditambahkan ke keranjang!</span>
+    `;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('hide');
+      setTimeout(() => toast.remove(), 500);
+    }, 2500);
+  }
+
   function updateCartCount() {
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
     cartCountElement.textContent = totalQty;
@@ -104,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
     renderCart();
     triggerSparkles();
+    showToastNotification(product.name);
   }
 
   function decrementStock(card) {
@@ -146,15 +162,21 @@ document.addEventListener('DOMContentLoaded', () => {
     emoji.className = `checkout-emoji ${useCartFly ? 'cart-fly' : 'bell-ring'}`;
     emoji.textContent = useCartFly ? '🛒' : '🔔';
     document.body.appendChild(emoji);
-    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 800);
+
+    // Create overlay effect
+    const overlay = document.createElement('div');
+    overlay.className = 'checkout-overlay';
+    document.body.appendChild(overlay);
+
+    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 1000);
+    setTimeout(() => overlay.remove(), 1200);
   }
 
   function animateCheckout() {
     cartToggle.classList.add('checkout-active');
     
-    // Random between cart fly or bell ring
-    const useCartFly = Math.random() > 0.5;
-    createCheckoutEmoji(useCartFly);
+    // Use bell ring for cleaner, more dynamic animation
+    createCheckoutEmoji(false);
     
     setTimeout(() => cartToggle.classList.remove('checkout-active'), 800);
   }
