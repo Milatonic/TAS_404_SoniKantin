@@ -9,17 +9,6 @@ const welcomeMessage = document.getElementById("welcome-message");
 let allProduk = [];
 
 if (splashScreen) {
-  // Emoji berganti
-  const emojiArray = ['🍕', '🍔', '🍟', '🍰', '☕', '🥤', '🍦', '🍪'];
-  let emojiIndex = 0;
-  const storeEmoji = splashScreen.querySelector('.store-emoji');
-  if (storeEmoji) {
-    setInterval(() => {
-      emojiIndex = (emojiIndex + 1) % emojiArray.length;
-      storeEmoji.textContent = emojiArray[emojiIndex];
-    }, 800);
-  }
-
   setTimeout(() => {
     splashScreen.classList.add("splash-hidden");
     // Tunggu 2 detik lalu tampilkan welcome

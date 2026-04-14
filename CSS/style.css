@@ -101,16 +101,52 @@ body::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.8);
   z-index: 9998;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 2s ease, visibility 2s ease;
 }
 
 .welcome-message.show {
   opacity: 1;
   visibility: visible;
+}
+
+.welcome-content {
+  position: relative;
+  text-align: center;
+}
+
+.welcome-emoji {
+  position: absolute;
+  font-size: 2rem;
+  animation: emojiFloat 3s ease-in-out infinite;
+}
+
+.welcome-emoji.top-left {
+  top: -40px;
+  left: -60px;
+}
+
+.welcome-emoji.top-right {
+  top: -40px;
+  right: -60px;
+}
+
+.welcome-emoji.bottom-left {
+  bottom: -40px;
+  left: -60px;
+}
+
+.welcome-emoji.bottom-right {
+  bottom: -40px;
+  right: -60px;
+}
+
+@keyframes emojiFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 .welcome-message h2 {
@@ -124,7 +160,7 @@ body::after {
 @keyframes welcomeFade {
   0% { opacity: 0; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1); }
-  100% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8); }
 }
 
 .splash-logo {
