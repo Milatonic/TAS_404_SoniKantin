@@ -66,6 +66,26 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
   }
 
+  function decrementStock(card) {
+    const stockEl = card.querySelector('.product-stock');
+    if (!stockEl) return false;
+    const currentStock = parseInt(stockEl.textContent.replace(/[^0-9]/g, ''), 10);
+    if (isNaN(currentStock) || currentStock <= 0) {
+      return false;
+    }
+    const nextStock = currentStock - 1;
+    stockEl.textContent = nextStock > 0 ? `Stok: ${nextStock}` : 'Stok: Habis';
+    if (nextStock <= 0) {
+      const button = card.querySelector('.add-cart-button');
+      if (button) {
+        button.disabled = true;
+        button.textContent = '❌ Habis';
+        button.classList.add('disabled');
+      }
+    }
+    return true;
+  }
+
   function removeCartItem(productName) {
     const itemIndex = cart.findIndex(i => i.name === productName);
     if (itemIndex >= 0) {
@@ -99,10 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
       card.dataset.productPrice = priceValue;
       card.dataset.productCategory = category;
 
+      const stockText = card.querySelector('.product-stock')?.textContent || 'Stok: 0';
+      const currentStock = parseInt(stockText.replace(/[^0-9]/g, ''), 10);
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'add-cart-button';
-      button.textContent = '🛒 Tambah';
+      button.textContent = currentStock > 0 ? '🛒 Tambah' : '❌ Habis';
+      if (currentStock <= 0) {
+        button.disabled = true;
+        button.classList.add('disabled');
+      }
+      card.dataset.productStock = currentStock;
       card.querySelector('.card-content')?.appendChild(button);
     });
   }
@@ -119,6 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!button) return;
       const card = button.closest('.product-card');
       if (!card) return;
+      if (button.disabled) return;
+      const stockUpdated = decrementStock(card);
+      if (!stockUpdated) {
+        button.disabled = true;
+        button.textContent = '❌ Habis';
+        button.classList.add('disabled');
+        return;
+      }
       const product = {
         name: card.dataset.productName || 'Produk',
         price: parseInt(card.dataset.productPrice || '0', 10),
