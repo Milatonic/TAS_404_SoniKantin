@@ -37,14 +37,8 @@ function formatPrice(price) {
 }
 
 function normalizeImage(url) {
-  if (!url) return "https://via.placeholder.com/360x220?text=No+Image";
-  if (url.includes("drive.google.com")) {
-    const match = url.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
-    if (match && match[1]) {
-      return `https://drive.google.com/uc?export=view&id=${match[1]}`;
-    }
-  }
-  return url;
+  // For now, use placeholder since Google Drive images may not load
+  return "https://via.placeholder.com/360x220?text=Produk+Gambar";
 }
 
 function setTheme(category) {
