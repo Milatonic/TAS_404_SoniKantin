@@ -9,7 +9,9 @@
 <body>
   <div class="splash-screen" id="splash-screen">
     <div class="splash-logo">
-      <div class="logo-bubble"></div>
+      <div class="logo-bubble">
+        <span class="store-emoji">🏪</span>
+      </div>
       <div class="logo-text">
         <span>S</span><span>o</span><span>n</span><span>i</span>
       </div>
@@ -18,9 +20,12 @@
   </div>
   <div class="app-shell">
     <header class="app-header">
-      <div>
-        <h1>Soni Kantin</h1>
-        <p class="subtitle">Menu kantin mobile, cepat dan mudah.</p>
+      <div class="header-top">
+        <div>
+          <h1>Soni Kantin</h1>
+          <p class="subtitle">Menu kantin mobile, cepat dan mudah.</p>
+        </div>
+        <button id="cart-toggle" class="cart-button" aria-label="Buka keranjang">🛒 <span id="cart-count">0</span></button>
       </div>
       <div class="hero-card">
         <p>Telusuri produk dan mitra kami langsung dari folder <strong>data</strong>.</p>
@@ -78,7 +83,26 @@
     </nav>
   </div>
 
+  <div id="cart-drawer" class="cart-drawer hidden">
+    <div class="cart-drawer-header">
+      <div>
+        <span class="drawer-title">🛒 Keranjang</span>
+        <p class="drawer-subtitle">Pilih produk, lalu checkout dengan gaya!</p>
+      </div>
+      <button id="cart-close" class="cart-close" aria-label="Tutup keranjang">×</button>
+    </div>
+    <div id="cart-items" class="cart-items">
+      <div class="cart-empty">Keranjangmu masih kosong.</div>
+    </div>
+    <div class="cart-footer">
+      <span id="cart-total">Total: Rp 0</span>
+      <button id="checkout-button" class="checkout-button">Checkout</button>
+    </div>
+  </div>
+  <div id="cart-backdrop" class="cart-backdrop hidden"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="JS/app.js"></script>
+  <script src="JS/cart.js"></script>
 </body>
 </html>
