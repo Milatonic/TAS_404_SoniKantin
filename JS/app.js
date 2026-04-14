@@ -66,7 +66,7 @@ function renderProduk(produkItems) {
 
         return `
         <article class="card product-card ${categoryClass}">
-          <img src="$(item.produk_image}" alt="${item.produk_name.trim()}" loading="lazy">
+          <img src="${(item.produk_image)}" alt="${item.produk_name.trim()}" loading="lazy">
           <div class="card-content">
             <h3>${item.produk_name.trim()}</h3>
             <p class="product-meta">Kategori: ${item.produk_category}</p>
