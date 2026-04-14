@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cart = [];
   let cartNote = '';
 
+  const sparkleEmojis = ['✨', '💫', '⭐', '🌟', '💥'];
+
   function parsePrice(priceText) {
     if (!priceText) return 0;
     const cleaned = priceText.replace(/[^0-9]/g, '');
@@ -19,6 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function formatRupiah(value) {
     return new Intl.NumberFormat('id-ID').format(value);
+  }
+
+  function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    const emoji = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+    sparkle.textContent = emoji;
+
+    // Random position near screen edge
+    const edge = Math.random() > 0.5 ? 'right' : 'left';
+    const x = edge === 'right' ? window.innerWidth - 50 : 50;
+    const y = Math.random() * window.innerHeight;
+
+    sparkle.style.left = x + 'px';
+    sparkle.style.top = y + 'px';
+
+    // Random direction
+    const tx = (Math.random() - 0.5) * 300;
+    const ty = (Math.random() - 0.5) * 300;
+
+    sparkle.style.setProperty('--tx', tx + 'px');
+    sparkle.style.setProperty('--ty', ty + 'px');
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 800);
+  }
+
+  function triggerSparkles() {
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => createSparkle(), i * 100);
+    }
   }
 
   function updateCartCount() {
@@ -69,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateCartCount();
     renderCart();
+    triggerSparkles();
   }
 
   function decrementStock(card) {
@@ -106,8 +141,21 @@ document.addEventListener('DOMContentLoaded', () => {
     cartBackdrop.classList.toggle('hidden', !shouldOpen);
   }
 
+  function createCheckoutEmoji(useCartFly = true) {
+    const emoji = document.createElement('div');
+    emoji.className = `checkout-emoji ${useCartFly ? 'cart-fly' : 'bell-ring'}`;
+    emoji.textContent = useCartFly ? '🛒' : '🔔';
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 800);
+  }
+
   function animateCheckout() {
     cartToggle.classList.add('checkout-active');
+    
+    // Random between cart fly or bell ring
+    const useCartFly = Math.random() > 0.5;
+    createCheckoutEmoji(useCartFly);
+    
     setTimeout(() => cartToggle.classList.remove('checkout-active'), 800);
   }
 
