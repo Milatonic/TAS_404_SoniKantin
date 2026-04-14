@@ -28,27 +28,13 @@
     <header class="app-header">
       <div class="header-top">
         <div class="header-text">
-          <h1>Soni Kantin</h1>
+          <h1>🍽️ Soni Kantin 🍽️</h1>
           <p class="subtitle">Main hujan jadi basah,<br>Makan di Bu Soni, auto nambah!</p>
         </div>
         <button id="cart-toggle" class="cart-button" aria-label="Buka keranjang">🛒 <span id="cart-count">0</span></button>
       </div>
-      <nav class="header-nav">
-        <button class="nav-button active" data-target="tab-produk">
-          <span>🍱</span>
-          <small>Produk</small>
-        </button>
-        <button class="nav-button" data-target="tab-mitra">
-          <span>🤝</span>
-          <small>Mitra</small>
-        </button>
-        <button class="nav-button" data-target="tab-info">
-          <span>ℹ️</span>
-          <small>Info</small>
-        </button>
-      </nav>
       <div class="hero-card">
-        <p>Telusuri produk dan mitra kami langsung dari folder <strong>data</strong>.</p>
+        <p>✨ Telusuri produk dan mitra kami langsung dari folder <strong>data</strong>. ✨</p>
       </div>
     </header>
 
@@ -64,7 +50,7 @@
       <div class="tab-panels">
         <section id="tab-produk" class="tab-panel active">
           <div class="section-header">
-            <h2>Produk</h2>
+            <h2>🍱 Produk 🍱</h2>
             <span id="produk-count">0 item</span>
           </div>
           <div class="filter-row">
@@ -77,19 +63,19 @@
 
         <section id="tab-mitra" class="tab-panel hidden">
           <div class="section-header">
-            <h2>Mitra</h2>
+            <h2>🤝 Mitra 🤝</h2>
           </div>
           <div id="mitra-card" class="card card-large"></div>
         </section>
 
         <section id="tab-info" class="tab-panel hidden">
           <div class="section-header">
-            <h2>Info</h2>
+            <h2>ℹ️ Info ℹ️</h2>
           </div>
           <div class="info-card card">
-            <p>Data produk dan mitra dimuat dari folder <strong>data</strong> agar mudah diperbarui.</p>
-            <p>Gunakan menu bawah untuk berpindah antara Produk, Mitra, dan Info.</p>
-            <p>Halaman ini dioptimalkan untuk tampilan mobile.</p>
+            <p>📂 Data produk dan mitra dimuat dari folder <strong>data</strong> agar mudah diperbarui.</p>
+            <p>👇 Gunakan menu bawah untuk berpindah antara Produk, Mitra, dan Info.</p>
+            <p>📱 Halaman ini dioptimalkan untuk tampilan mobile.</p>
           </div>
         </section>
       </div>
@@ -117,6 +103,22 @@
     </div>
   </div>
   <div id="cart-backdrop" class="cart-backdrop hidden"></div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-button active" data-target="tab-produk">
+      <span>🍱</span>
+      <small>Produk</small>
+    </button>
+    <button class="nav-button" data-target="tab-mitra">
+      <span>🤝</span>
+      <small>Mitra</small>
+    </button>
+    <button class="nav-button" data-target="tab-info">
+      <span>ℹ️</span>
+      <small>Info</small>
+    </button>
+  </nav>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="JS/app.js"></script>

@@ -138,12 +138,18 @@ function renderMitra(mitra) {
 
   mitraCard.innerHTML = `
     <div class="mitra-content">
-      <h3>${mitra.mitra_name}</h3>
+      <div style="text-align: center; margin-bottom: 16px; font-size: 2.5rem;">
+        🍽️✨🎉
+      </div>
+      <h3>🏪 ${mitra.mitra_name} 🏪</h3>
       <p><strong>Pemilik:</strong> ${mitra.owner_name}</p>
-      <p><strong>Email:</strong> ${mitra.email_owner}</p>
+      <p><strong>Email:</strong> <a href="mailto:${mitra.email_owner}">${mitra.email_owner}</a></p>
       <p><strong>Alamat:</strong> ${mitra.address_owner}</p>
       <p><strong>Kategori:</strong> ${mitra.category}</p>
       <p><strong>Sekolah:</strong> ${mitra.school}</p>
+      <div style="text-align: center; margin-top: 20px; font-size: 2rem; opacity: 0.7;">
+        🍕🍔🍟☕🥤🍦
+      </div>
     </div>
   `;
 }
