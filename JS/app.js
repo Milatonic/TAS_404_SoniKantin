@@ -6,6 +6,9 @@ const navButtons = document.querySelectorAll(".nav-button");
 const tabPanels = document.querySelectorAll(".tab-panel");
 const splashScreen = document.getElementById("splash-screen");
 const welcomeMessage = document.getElementById("welcome-message");
+const productModal = document.getElementById("product-modal");
+const productModalBody = document.getElementById("product-modal-body");
+const productModalClose = document.getElementById("product-modal-close");
 let allProduk = [];
 
 if (splashScreen) {
@@ -114,7 +117,7 @@ function renderProduk(produkItems) {
           : "";
 
         return `
-        <article class="card product-card ${categoryClass}">
+        <article class="card product-card ${categoryClass}" data-product-id="${item.produk_id}" style="cursor: pointer;">
           <img src="${(item.produk_image)}" alt="${item.produk_name.trim()}" loading="lazy">
           <div class="card-content">
             <h3>${item.produk_name.trim()}</h3>
@@ -128,6 +131,18 @@ function renderProduk(produkItems) {
     : `<div class="empty-state">Produk tidak ditemukan.</div>`;
 
   produkCount.textContent = `${produkItems.length} item`;
+
+  // Add click handlers to product cards
+  const productCards = produkList.querySelectorAll('.product-card');
+  productCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const productId = card.dataset.productId;
+      const product = produkItems.find(p => p.produk_id === productId);
+      if (product) {
+        showProductDetail(product);
+      }
+    });
+  });
 }
 
 function renderMitra(mitra) {
@@ -154,6 +169,62 @@ function renderMitra(mitra) {
   `;
 }
 
+function showProductDetail(product) {
+  if (!product) return;
+
+  const categoryEmoji = product.produk_category.toLowerCase() === "minuman" ? "🥤" : "🍱";
+  productModalBody.innerHTML = `
+    <img src="${product.produk_image}" alt="${product.produk_name.trim()}" class="product-detail-image">
+    <div class="product-detail-header">
+      <h2 class="product-detail-name">${categoryEmoji} ${product.produk_name.trim()}</h2>
+      <span class="product-detail-category">${product.produk_category}</span>
+    </div>
+    <div class="product-detail-info">
+      <div class="product-info-row">
+        <span class="product-info-label">💰 Harga</span>
+        <span class="product-info-value">${formatPrice(product.produk_price)}</span>
+      </div>
+      <div class="product-info-row">
+        <span class="product-info-label">📦 Stok Tersedia</span>
+        <span class="product-info-value">${product.produk_stock}</span>
+      </div>
+    </div>
+    <div class="product-action-buttons">
+      <button class="product-add-button" data-product-id="${product.produk_id}">🛒 Tambah ke Keranjang</button>
+      <button class="product-close-button">Tutup</button>
+    </div>
+  `;
+
+  productModal.classList.remove('hidden');
+  triggerConfetti();
+
+  // Handle add to cart button
+  const addBtn = productModalBody.querySelector('.product-add-button');
+  addBtn.addEventListener('click', () => {
+    // Dispatch custom event to add to cart
+    const cartEvent = new CustomEvent('addProductToCart', {
+      detail: {
+        name: product.produk_name.trim(),
+        price: parseInt(formatPrice(product.produk_price).replace(/[^0-9]/g, '') || '0'),
+        category: product.produk_category,
+        productId: product.produk_id
+      }
+    });
+    document.dispatchEvent(cartEvent);
+    productModal.classList.add('hidden');
+  });
+
+  // Handle close button
+  const closeBtn = productModalBody.querySelector('.product-close-button');
+  closeBtn.addEventListener('click', () => {
+    productModal.classList.add('hidden');
+  });
+}
+
+function closeProductModal() {
+  productModal.classList.add('hidden');
+}
+
 function applyFilter(category) {
   const filtered = category === "all"
     ? allProduk
@@ -177,6 +248,23 @@ navButtons.forEach(button => {
     triggerConfetti();
     setActiveTab(button.dataset.target);
   });
+});
+
+// Product modal event listeners
+if (productModalClose) {
+  productModalClose.addEventListener("click", closeProductModal);
+}
+
+const productModalBackdrop = productModal.querySelector('.product-modal-backdrop');
+if (productModalBackdrop) {
+  productModalBackdrop.addEventListener("click", closeProductModal);
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !productModal.classList.contains('hidden')) {
+    closeProductModal();
+  }
 });
 
 fetch("data/tabel_produk_rows.json")

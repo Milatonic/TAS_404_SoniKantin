@@ -209,4 +209,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateCartCount();
   renderCart();
+
+  // Listen for custom event from product modal
+  document.addEventListener('addProductToCart', (e) => {
+    const productData = e.detail;
+    const product = {
+      name: productData.name,
+      price: productData.price,
+      category: productData.category
+    };
+    addCartItem(product);
+    if (typeof triggerConfetti === 'function') {
+      triggerConfetti();
+    }
+  });
 });
