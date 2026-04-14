@@ -4,7 +4,23 @@ const produkCount = document.getElementById("produk-count");
 const filterButtons = document.querySelectorAll(".filter-button");
 const navButtons = document.querySelectorAll(".nav-button");
 const tabPanels = document.querySelectorAll(".tab-panel");
+const splashScreen = document.getElementById("splash-screen");
 let allProduk = [];
+
+if (splashScreen) {
+  setTimeout(() => {
+    splashScreen.classList.add("splash-hidden");
+  }, 4000);
+
+  // Klik logo untuk langsung masuk
+  const logoBubble = splashScreen.querySelector('.logo-bubble');
+  if (logoBubble) {
+    logoBubble.addEventListener('click', () => {
+      triggerConfetti();
+      splashScreen.classList.add("splash-hidden");
+    });
+  }
+}
 
 function setActiveTab(targetId) {
   tabPanels.forEach(panel => {
@@ -23,7 +39,7 @@ function formatPrice(price) {
 function normalizeImage(url) {
   if (!url) return "https://via.placeholder.com/360x220?text=No+Image";
   if (url.includes("drive.google.com")) {
-    const match = url.match(/\/d\/(.*?)\//);
+    const match = url.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
     if (match && match[1]) {
       return `https://drive.google.com/uc?export=view&id=${match[1]}`;
     }
@@ -31,11 +47,37 @@ function normalizeImage(url) {
   return url;
 }
 
+function setTheme(category) {
+  document.body.classList.remove("theme-all", "theme-makanan", "theme-minuman");
+  if (category === "Makanan") {
+    document.body.classList.add("theme-makanan");
+  } else if (category === "Minuman") {
+    document.body.classList.add("theme-minuman");
+  } else {
+    document.body.classList.add("theme-all");
+  }
+}
+
+function triggerConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+}
+
 function renderProduk(produkItems) {
   produkList.innerHTML = produkItems.length
-    ? produkItems.map(item => `
-        <article class="card product-card">
-          <img src="${normalizeImage(item.produk_image)}" alt="${item.produk_name}" loading="lazy">
+    ? produkItems.map(item => {
+        const categoryClass = item.produk_category.toLowerCase() === "minuman"
+          ? "category-minuman"
+          : item.produk_category.toLowerCase() === "makanan"
+          ? "category-makanan"
+          : "";
+
+        return `
+        <article class="card product-card ${categoryClass}">
+          <img src="${normalizeImage(item.produk_image)}" alt="${item.produk_name.trim()}" loading="lazy">
           <div class="card-content">
             <h3>${item.produk_name.trim()}</h3>
             <p class="product-meta">Kategori: ${item.produk_category}</p>
@@ -43,7 +85,8 @@ function renderProduk(produkItems) {
             <p class="product-stock">Stok: ${item.produk_stock}</p>
           </div>
         </article>
-      `).join("")
+      `;
+      }).join("")
     : `<div class="empty-state">Produk tidak ditemukan.</div>`;
 
   produkCount.textContent = `${produkItems.length} item`;
@@ -76,13 +119,20 @@ function applyFilter(category) {
 
 filterButtons.forEach(button => {
   button.addEventListener("click", () => {
+    triggerConfetti();
     filterButtons.forEach(btn => btn.classList.toggle("active", btn === button));
+    setTheme(button.dataset.filter);
     applyFilter(button.dataset.filter);
   });
 });
 
+setTheme("all");
+
 navButtons.forEach(button => {
-  button.addEventListener("click", () => setActiveTab(button.dataset.target));
+  button.addEventListener("click", () => {
+    triggerConfetti();
+    setActiveTab(button.dataset.target);
+  });
 });
 
 fetch("data/tabel_produk_rows.json")
