@@ -27,12 +27,26 @@
   <div class="app-shell">
     <header class="app-header">
       <div class="header-top">
-        <div>
+        <div class="header-text">
           <h1>Soni Kantin</h1>
           <p class="subtitle">Main hujan jadi basah,<br>Makan di Bu Soni, auto nambah!</p>
         </div>
         <button id="cart-toggle" class="cart-button" aria-label="Buka keranjang">🛒 <span id="cart-count">0</span></button>
       </div>
+      <nav class="header-nav">
+        <button class="nav-button active" data-target="tab-produk">
+          <span>🍱</span>
+          <small>Produk</small>
+        </button>
+        <button class="nav-button" data-target="tab-mitra">
+          <span>🤝</span>
+          <small>Mitra</small>
+        </button>
+        <button class="nav-button" data-target="tab-info">
+          <span>ℹ️</span>
+          <small>Info</small>
+        </button>
+      </nav>
       <div class="hero-card">
         <p>Telusuri produk dan mitra kami langsung dari folder <strong>data</strong>.</p>
       </div>
@@ -80,21 +94,6 @@
         </section>
       </div>
     </main>
-
-    <nav class="bottom-nav">
-      <button class="nav-button active" data-target="tab-produk">
-        <span>🍱</span>
-        <small>Produk</small>
-      </button>
-      <button class="nav-button" data-target="tab-mitra">
-        <span>🤝</span>
-        <small>Mitra</small>
-      </button>
-      <button class="nav-button" data-target="tab-info">
-        <span>ℹ️</span>
-        <small>Info</small>
-      </button>
-    </nav>
   </div>
 
   <div id="cart-drawer" class="cart-drawer hidden">
