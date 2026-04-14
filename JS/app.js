@@ -11,13 +11,11 @@ let allProduk = [];
 if (splashScreen) {
   const emojiArray = ['🍕', '🍔', '🍟', '🍰', '☕', '🥤', '🍦', '🍪'];
   let emojiIndex = 0;
-  const storeIcons = splashScreen.querySelectorAll('.store-emoji');
-  if (storeIcons.length) {
+  const logoIcon = splashScreen.querySelector('.logo-icon');
+  if (logoIcon) {
     setInterval(() => {
       emojiIndex = (emojiIndex + 1) % emojiArray.length;
-      storeIcons.forEach(icon => {
-        icon.textContent = emojiArray[emojiIndex];
-      });
+      logoIcon.textContent = emojiArray[emojiIndex];
     }, 400);
   }
 
