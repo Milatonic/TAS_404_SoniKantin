@@ -6,8 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartCountElement = document.getElementById('cart-count');
   const checkoutButton = document.getElementById('checkout-button');
   const cartBackdrop = document.getElementById('cart-backdrop');
+  const cartNoteInput = document.getElementById('cart-note');
   const produkList = document.getElementById('produk-list');
   const cart = [];
+  let cartNote = '';
 
   function parsePrice(priceText) {
     if (!priceText) return 0;
@@ -53,6 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const totalValue = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
     document.getElementById('cart-total').textContent = `Total: Rp ${formatRupiah(totalValue)}`;
+    if (cartNoteInput) {
+      cartNoteInput.value = cartNote;
+    }
   }
 
   function addCartItem(product) {
@@ -173,6 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
   cartClose?.addEventListener('click', () => toggleCart(false));
   cartBackdrop?.addEventListener('click', () => toggleCart(false));
 
+  if (cartNoteInput) {
+    cartNoteInput.addEventListener('input', event => {
+      cartNote = event.target.value;
+    });
+  }
+
   cartItemsElement?.addEventListener('click', event => {
     const removeButton = event.target.closest('.cart-item-remove');
     if (!removeButton) return;
@@ -188,6 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cartDrawer.classList.add('checkout-done');
     setTimeout(() => {
       cart.length = 0;
+      cartNote = '';
+      if (cartNoteInput) cartNoteInput.value = '';
       updateCartCount();
       renderCart();
       cartDrawer.classList.remove('checkout-done');

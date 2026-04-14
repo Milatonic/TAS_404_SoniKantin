@@ -1,6 +1,6 @@
 body {
   font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #ff8c42 0%, #ffb366 40%, #b5d8ff 65%, #ffe4b0 100%);
+  background: linear-gradient(135deg, #ffd8b2 0%, #fff2dd 55%, #fffaf5 100%);
   background-size: 400% 400%;
   animation: gradientShift 12s ease infinite;
   padding: 0;
@@ -116,13 +116,13 @@ body::after {
   height: 110px;
   margin: 0 auto 18px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #5b8dff 0%, #4f7eff 35%, #ff8c42 70%, #ffcc91 100%);
-  box-shadow: 0 0 50px rgba(79, 126, 255, 0.65), 
-              0 0 100px rgba(255, 188, 110, 0.4),
-              inset -3px -3px 10px rgba(0, 0, 0, 0.15),
-              inset 3px 3px 10px rgba(255, 255, 255, 0.4);
+  background: radial-gradient(circle at 30% 30%, #4a6ddb 0%, #3b5dcb 55%, #233d9d 100%);
+  box-shadow: 0 0 50px rgba(58, 88, 215, 0.65), 
+              0 0 90px rgba(66, 106, 238, 0.28),
+              inset -3px -3px 10px rgba(0, 0, 0, 0.12),
+              inset 3px 3px 10px rgba(255, 255, 255, 0.18);
   position: relative;
-  border: 4px solid rgba(255, 255, 255, 0.4);
+  border: 4px solid rgba(255, 255, 255, 0.35);
   animation: bubblePulse 1.5s ease-in-out infinite;
 }
 
@@ -226,14 +226,12 @@ h3 {
 
 .app-header {
   padding: 22px 18px 14px;
-  background: linear-gradient(135deg, #5b8dff 0%, #82b6ff 45%, #ffd18c 100%);
-  background-size: 200% 200%;
-  animation: headerGradient 6s ease infinite;
+  background: #3655be;
   color: white;
-  box-shadow: 0 10px 40px rgba(79, 126, 255, 0.18);
+  box-shadow: 0 10px 40px rgba(40, 75, 191, 0.22);
   position: relative;
   overflow: hidden;
-  border-bottom: 4px dashed rgba(255, 255, 255, 0.5);
+  border-bottom: 4px dashed rgba(255, 255, 255, 0.35);
 }
 
 .header-top {
@@ -251,11 +249,11 @@ h3 {
   padding: 10px 14px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, #5b8dff, #82b6ff 45%, #ff8c42);
+  background: linear-gradient(135deg, #1f3fad, #2b59d2);
   color: white;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(79, 126, 255, 0.24);
+  box-shadow: 0 10px 24px rgba(35, 68, 173, 0.28);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -408,7 +406,7 @@ h3 {
   width: fit-content;
   border: none;
   border-radius: 16px;
-  background: linear-gradient(135deg, #ff8c42, #ffb366);
+  background: #ff8c42;
   color: white;
   font-weight: 700;
   padding: 10px 14px;
@@ -419,6 +417,32 @@ h3 {
 .add-cart-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(255, 140, 66, 0.2);
+}
+
+.cart-note {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.cart-note label {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.cart-note textarea {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 12px 14px;
+  resize: vertical;
+  font-family: inherit;
+  color: #0f172a;
+  background: #f8fafc;
 }
 
 .cart-footer {
@@ -434,7 +458,7 @@ h3 {
   border: none;
   border-radius: 999px;
   padding: 12px 18px;
-  background: linear-gradient(135deg, #ff8c42, #ffb366);
+  background: #ff8c42;
   color: white;
   font-weight: 700;
   cursor: pointer;
