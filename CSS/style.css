@@ -58,7 +58,7 @@ body::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #4f7eff 0%, #82b6ff 35%, #ffcc91 85%, #ff8c42 100%);
+  background: linear-gradient(135deg, #ff8c42 0%, #ffd700 100%);
   background-size: 200% 200%;
   animation: splashGradient 3s ease infinite;
   z-index: 9999;
@@ -93,6 +93,38 @@ body::after {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+.welcome-message {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.welcome-message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.welcome-message h2 {
+  font-size: 2rem;
+  color: #ff8c42;
+  text-align: center;
+  font-weight: 800;
+  animation: welcomeFade 2s ease-in-out;
+}
+
+@keyframes welcomeFade {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .splash-logo {

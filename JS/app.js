@@ -5,11 +5,31 @@ const filterButtons = document.querySelectorAll(".filter-button");
 const navButtons = document.querySelectorAll(".nav-button");
 const tabPanels = document.querySelectorAll(".tab-panel");
 const splashScreen = document.getElementById("splash-screen");
+const welcomeMessage = document.getElementById("welcome-message");
 let allProduk = [];
 
 if (splashScreen) {
+  // Emoji berganti
+  const emojiArray = ['🍕', '🍔', '🍟', '🍰', '☕', '🥤', '🍦', '🍪'];
+  let emojiIndex = 0;
+  const storeEmoji = splashScreen.querySelector('.store-emoji');
+  if (storeEmoji) {
+    setInterval(() => {
+      emojiIndex = (emojiIndex + 1) % emojiArray.length;
+      storeEmoji.textContent = emojiArray[emojiIndex];
+    }, 800);
+  }
+
   setTimeout(() => {
     splashScreen.classList.add("splash-hidden");
+    // Tunggu 2 detik lalu tampilkan welcome
+    setTimeout(() => {
+      welcomeMessage.classList.add("show");
+      // Tunggu 2 detik lalu hilangkan welcome
+      setTimeout(() => {
+        welcomeMessage.classList.remove("show");
+      }, 2000);
+    }, 2000);
   }, 4000);
 
   // Klik logo untuk langsung masuk
@@ -18,6 +38,10 @@ if (splashScreen) {
     logoBubble.addEventListener('click', () => {
       triggerConfetti();
       splashScreen.classList.add("splash-hidden");
+      // Skip welcome jika klik
+      setTimeout(() => {
+        welcomeMessage.classList.remove("show");
+      }, 0);
     });
   }
 }
