@@ -201,26 +201,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function createCheckoutEmoji() {
+  function createCheckoutOverlay() {
     const overlay = document.createElement('div');
     overlay.className = 'checkout-overlay';
     document.body.appendChild(overlay);
-    
-    const emoji = document.createElement('div');
-    emoji.className = 'checkout-emoji bell-ring';
-    emoji.textContent = '🔔';
-    document.body.appendChild(emoji);
 
-    // Fade out bersamaan dengan text untuk smooth coordination
     setTimeout(() => {
       overlay.classList.add('fade-out');
-      emoji.classList.add('fade-out');
     }, 1600);
     
     setTimeout(() => {
       overlay.remove();
-      emoji.remove();
     }, 2100);
+  }
+
+  function createScatteredEmojis() {
+    const foodEmojis = ['🍕', '🍔', '🍟', '🌮', '🍜', '🍲', '🥗', '🍱', '🍖', '🥘'];
+    const drinkEmojis = ['☕', '🥤', '🧋', '🍹', '🧉', '🥛', '🍷', '🍺'];
+    const allEmojis = [...foodEmojis, ...drinkEmojis];
+    
+    // Create 12 scattered emojis around the text area
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        const emoji = document.createElement('div');
+        emoji.className = 'checkout-scattered-emoji';
+        emoji.textContent = allEmojis[Math.floor(Math.random() * allEmojis.length)];
+        
+        // Random position scattered around center
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 80 + Math.random() * 120;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        emoji.style.left = (centerX + x) + 'px';
+        emoji.style.top = (centerY + y) + 'px';
+        emoji.style.setProperty('--delay', Math.random() * 0.3 + 's');
+        
+        document.body.appendChild(emoji);
+        setTimeout(() => emoji.remove(), 1700);
+      }, i * 40);
+    }
   }
 
   function createCheckoutText() {
@@ -256,8 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function animateCheckout() {
     // Coordinated smooth animation sequence
     createCheckoutSparkles();
-    setTimeout(() => createCheckoutEmoji(), 150);
-    setTimeout(() => createCheckoutText(), 500);
+    setTimeout(() => createCheckoutOverlay(), 150);
+    setTimeout(() => {
+      createCheckoutText();
+      createScatteredEmojis();
+    }, 500);
   }
 
   function addButtonsToCards() {
