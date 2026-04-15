@@ -211,15 +211,16 @@ document.addEventListener('DOMContentLoaded', () => {
     emoji.textContent = '🔔';
     document.body.appendChild(emoji);
 
+    // Fade out bersamaan dengan text untuk smooth coordination
     setTimeout(() => {
       overlay.classList.add('fade-out');
       emoji.classList.add('fade-out');
-    }, 1200);
+    }, 1600);
     
     setTimeout(() => {
       overlay.remove();
       emoji.remove();
-    }, 1700);
+    }, 2100);
   }
 
   function createCheckoutText() {
@@ -242,13 +243,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.body.appendChild(textContainer);
     
+    // Fade out bersamaan dengan overlay dan emoji
     setTimeout(() => {
       textContainer.classList.add('fade-out');
-    }, 1800);
+    }, 1600);
     
     setTimeout(() => {
       textContainer.remove();
-    }, 2300);
+    }, 2100);
   }
 
   function animateCheckout() {
