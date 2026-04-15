@@ -173,46 +173,53 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createCheckoutSparkles() {
-    const sparkleEmojis = ['✨', '🎉', '💖', '⭐', '🌟', '💫', '🎊', '💝'];
-    const containerRect = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const sparkleEmojis = ['✨', '💖', '⭐', '🌟'];
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
     
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 8; i++) {
       setTimeout(() => {
         const sparkle = document.createElement('div');
         sparkle.className = 'checkout-sparkle';
-        const emoji = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+        const emoji = sparkleEmojis[i % sparkleEmojis.length];
         sparkle.textContent = emoji;
         
-        // Random angle in circle
-        const angle = (i / 12) * Math.PI * 2;
-        const distance = 150;
+        // Circular pattern
+        const angle = (i / 8) * Math.PI * 2;
+        const distance = 180;
         const x = Math.cos(angle) * distance;
         const y = Math.sin(angle) * distance;
         
         sparkle.style.setProperty('--tx', x + 'px');
         sparkle.style.setProperty('--ty', y + 'px');
-        sparkle.style.left = containerRect.x + 'px';
-        sparkle.style.top = containerRect.y + 'px';
+        sparkle.style.left = centerX + 'px';
+        sparkle.style.top = centerY + 'px';
         
         document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1200);
-      }, i * 60);
+        setTimeout(() => sparkle.remove(), 1400);
+      }, i * 80);
     }
   }
 
   function createCheckoutEmoji() {
+    const overlay = document.createElement('div');
+    overlay.className = 'checkout-overlay';
+    document.body.appendChild(overlay);
+    
     const emoji = document.createElement('div');
     emoji.className = 'checkout-emoji bell-ring';
     emoji.textContent = '🔔';
     document.body.appendChild(emoji);
 
-    // Create overlay effect
-    const overlay = document.createElement('div');
-    overlay.className = 'checkout-overlay';
-    document.body.appendChild(overlay);
-
-    setTimeout(() => emoji.remove(), 1500);
-    setTimeout(() => overlay.remove(), 1500);
+    setTimeout(() => {
+      overlay.classList.add('fade-out');
+      emoji.classList.add('fade-out');
+    }, 1200);
+    
+    setTimeout(() => {
+      overlay.remove();
+      emoji.remove();
+    }, 1700);
   }
 
   function createCheckoutText() {
@@ -234,15 +241,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     document.body.appendChild(textContainer);
-    setTimeout(() => textContainer.remove(), 2500);
+    
+    setTimeout(() => {
+      textContainer.classList.add('fade-out');
+    }, 1800);
+    
+    setTimeout(() => {
+      textContainer.remove();
+    }, 2300);
   }
 
   function animateCheckout() {
-    // Show sparkles and bell ring
+    // Coordinated smooth animation sequence
     createCheckoutSparkles();
-    createCheckoutEmoji();
-    // Show thank you text
-    setTimeout(() => createCheckoutText(), 300);
+    setTimeout(() => createCheckoutEmoji(), 150);
+    setTimeout(() => createCheckoutText(), 500);
   }
 
   function addButtonsToCards() {
