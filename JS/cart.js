@@ -168,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.className = 'checkout-overlay';
     document.body.appendChild(overlay);
 
-    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 1000);
-    setTimeout(() => overlay.remove(), 1200);
+    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 1800);
+    setTimeout(() => overlay.remove(), 1800);
   }
 
   function animateCheckout() {
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
       renderCart();
       cartDrawer.classList.remove('checkout-done');
-    }, 850);
+    }, 1800);
   });
 
   updateCartCount();
