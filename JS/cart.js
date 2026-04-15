@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function parsePrice(priceText) {
     if (!priceText) return 0;
-    // Format: "10.000,00" → remove dot and comma → parse
-    const cleaned = priceText.replace(/\./g, '').replace(',', '');
+    // Format: "10.000,00" → remove dots (thousands separator) and keep only integer part
+    const cleaned = priceText.replace(/\./g, '').split(',')[0];
     const numValue = parseInt(cleaned, 10);
     return isNaN(numValue) ? 0 : numValue;
   }
