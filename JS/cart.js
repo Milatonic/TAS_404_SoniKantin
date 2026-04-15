@@ -221,29 +221,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const celebrationEmojis = ['🎉', '🎊', '🎈', '🎁', '🏆', '⚡', '🔥'];
     const allEmojis = [...foodEmojis, ...drinkEmojis, ...celebrationEmojis];
     
-    // Create 16 scattered emojis with better distribution
-    for (let i = 0; i < 16; i++) {
+    // Create 20 scattered emojis with explosive effect - like fireworks!
+    for (let i = 0; i < 20; i++) {
       setTimeout(() => {
         const emoji = document.createElement('div');
         emoji.className = 'checkout-scattered-emoji';
         emoji.textContent = allEmojis[Math.floor(Math.random() * allEmojis.length)];
         
-        // Better radial distribution with random distance
-        const angle = (i / 16) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-        const distance = 100 + Math.random() * 150;
+        // Explosive radial distribution with more power
+        const angle = (i / 20) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+        const distance = 150 + Math.random() * 180;
         const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance - 30;
+        const y = Math.sin(angle) * distance - 50;
         
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         
         emoji.style.left = (centerX + x) + 'px';
         emoji.style.top = (centerY + y) + 'px';
-        emoji.style.setProperty('--delay', Math.random() * 0.2 + 's');
+        emoji.style.setProperty('--delay', Math.random() * 0.15 + 's');
         
         document.body.appendChild(emoji);
-        setTimeout(() => emoji.remove(), 2000);
-      }, i * 30);
+        setTimeout(() => emoji.remove(), 2200);
+      }, i * 25);
     }
   }
 
@@ -253,17 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
     textContainer.setAttribute('role', 'status');
     textContainer.setAttribute('aria-live', 'polite');
     
-    // Create success badge first
-    const badge = document.createElement('div');
-    badge.className = 'checkout-success-badge animate';
-    badge.textContent = '✓';
-    textContainer.appendChild(badge);
-    
     // Create thank you text
     const messageDiv = document.createElement('div');
     messageDiv.className = 'checkout-message';
     
-    const text = 'Terima kasih!';
+    const text = 'Terima Kasih!';
     let charIndex = 0;
     
     text.split('').forEach((char) => {
@@ -281,11 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger fade out after animation completes
     setTimeout(() => {
       textContainer.classList.add('fade-out');
-    }, 1800);
+    }, 1700);
     
     setTimeout(() => {
       textContainer.remove();
-    }, 2300);
+    }, 2200);
   }
 
   function animateCheckout() {

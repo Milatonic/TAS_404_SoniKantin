@@ -546,7 +546,7 @@ h3 {
 }
 
 .cart-drawer.hidden {
-  animation: cartSlideOut 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: cartSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -828,14 +828,14 @@ h3 {
   }
   100% {
     backdrop-filter: blur(12px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 107, 107, 0.1));
+    background: rgba(255, 255, 255, 0.5);
   }
 }
 
 @keyframes checkoutBlurOut {
   0% {
     backdrop-filter: blur(12px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 107, 107, 0.1));
+    background: rgba(255, 255, 255, 0.5);
   }
   100% {
     backdrop-filter: blur(0px);
@@ -863,17 +863,17 @@ h3 {
     opacity: 0;
     transform: scale(0) translateY(0px) rotate(0deg);
   }
-  15% {
+  12% {
     opacity: 1;
-    transform: scale(1) translateY(0px) rotate(-8deg);
+    transform: scale(1.1) translateY(-10px) rotate(-15deg);
   }
-  85% {
+  50% {
     opacity: 1;
-    transform: scale(1) translateY(-50px) rotate(8deg);
+    transform: scale(1.05) translateY(-120px) rotate(25deg);
   }
   100% {
     opacity: 0;
-    transform: scale(0.5) translateY(-80px) rotate(15deg);
+    transform: scale(0) translateY(-220px) rotate(360deg);
   }
 }
 
@@ -978,7 +978,7 @@ h3 {
 }
 
 .checkout-message {
-  font-size: 2.4rem;
+  font-size: 3rem;
   font-weight: 900;
   letter-spacing: -0.5px;
   white-space: nowrap;
@@ -987,8 +987,9 @@ h3 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 2px 12px rgba(255, 107, 107, 0.2);
+  text-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
   opacity: 0;
+  filter: drop-shadow(0 2px 8px rgba(255, 107, 107, 0.2));
 }
 
 .checkout-text-container.fade-out {
@@ -1005,18 +1006,18 @@ h3 {
   background-clip: text;
 }
 
-.checkout-letter:nth-child(1) { animation-delay: 0.45s; }
-.checkout-letter:nth-child(2) { animation-delay: 0.52s; }
-.checkout-letter:nth-child(3) { animation-delay: 0.59s; }
-.checkout-letter:nth-child(4) { animation-delay: 0.66s; }
-.checkout-letter:nth-child(5) { animation-delay: 0.73s; }
-.checkout-letter:nth-child(6) { animation-delay: 0.8s; }
-.checkout-letter:nth-child(7) { animation-delay: 0.87s; }
-.checkout-letter:nth-child(8) { animation-delay: 0.94s; }
-.checkout-letter:nth-child(9) { animation-delay: 1.01s; }
-.checkout-letter:nth-child(10) { animation-delay: 1.08s; }
-.checkout-letter:nth-child(11) { animation-delay: 1.15s; }
-.checkout-letter:nth-child(12) { animation-delay: 1.22s; }
+.checkout-letter:nth-child(1) { animation-delay: 0.35s; }
+.checkout-letter:nth-child(2) { animation-delay: 0.41s; }
+.checkout-letter:nth-child(3) { animation-delay: 0.47s; }
+.checkout-letter:nth-child(4) { animation-delay: 0.53s; }
+.checkout-letter:nth-child(5) { animation-delay: 0.59s; }
+.checkout-letter:nth-child(6) { animation-delay: 0.65s; }
+.checkout-letter:nth-child(7) { animation-delay: 0.71s; }
+.checkout-letter:nth-child(8) { animation-delay: 0.77s; }
+.checkout-letter:nth-child(9) { animation-delay: 0.83s; }
+.checkout-letter:nth-child(10) { animation-delay: 0.89s; }
+.checkout-letter:nth-child(11) { animation-delay: 0.95s; }
+.checkout-letter:nth-child(12) { animation-delay: 1.01s; }
 
 .cart-empty {
   padding: 24px;
