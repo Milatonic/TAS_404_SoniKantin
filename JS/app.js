@@ -88,6 +88,14 @@ function formatPrice(price) {
   return price ? price.trim() : "-";
 }
 
+function parsePrice(priceText) {
+  if (!priceText) return 0;
+  // Format: "10.000,00" → remove dot and comma → parse
+  const cleaned = priceText.trim().replace(/\./g, '').replace(',', '');
+  const numValue = parseInt(cleaned, 10);
+  return isNaN(numValue) ? 0 : numValue;
+}
+
 function setTheme(category) {
   document.body.classList.remove("theme-all", "theme-makanan", "theme-minuman");
   if (category === "Makanan") {
@@ -204,7 +212,7 @@ function showProductDetail(product) {
     const cartEvent = new CustomEvent('addProductToCart', {
       detail: {
         name: product.produk_name.trim(),
-        price: parseInt(formatPrice(product.produk_price).replace(/[^0-9]/g, '') || '0'),
+        price: parsePrice(product.produk_price),
         category: product.produk_category,
         productId: product.produk_id
       }
@@ -233,7 +241,6 @@ function applyFilter(category) {
 
 filterButtons.forEach(button => {
   button.addEventListener("click", () => {
-    triggerConfetti();
     filterButtons.forEach(btn => btn.classList.toggle("active", btn === button));
     setTheme(button.dataset.filter);
     applyFilter(button.dataset.filter);
@@ -244,7 +251,6 @@ setTheme("all");
 
 navButtons.forEach(button => {
   button.addEventListener("click", () => {
-    triggerConfetti();
     setActiveTab(button.dataset.target);
   });
 });

@@ -15,8 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function parsePrice(priceText) {
     if (!priceText) return 0;
-    const cleaned = priceText.replace(/[^0-9]/g, '');
-    return cleaned ? parseInt(cleaned, 10) : 0;
+    // Format: "10.000,00" → remove dot and comma → parse
+    const cleaned = priceText.replace(/\./g, '').replace(',', '');
+    const numValue = parseInt(cleaned, 10);
+    return isNaN(numValue) ? 0 : numValue;
   }
 
   function formatRupiah(value) {
@@ -56,6 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showToastNotification(productName) {
+    // Remove existing toast to prevent stacking
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+      existingToast.classList.add('hide');
+      existingToast.remove();
+    }
+
     const toast = document.createElement('div');
     toast.className = 'toast-notification';
     toast.innerHTML = `
@@ -152,9 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function toggleCart(open) {
-    const shouldOpen = typeof open === 'boolean' ? open : cartDrawer.classList.contains('hidden');
-    cartDrawer.classList.toggle('hidden', !shouldOpen);
-    cartBackdrop.classList.toggle('hidden', !shouldOpen);
+    const shouldOpen = typeof open === 'boolean' ? open : !cartDrawer.classList.contains('hidden');
+    if (shouldOpen) {
+      cartDrawer.classList.remove('hidden');
+      cartBackdrop.classList.remove('hidden');
+    } else {
+      cartDrawer.classList.add('hidden');
+      cartBackdrop.classList.add('hidden');
+    }
   }
 
   function createCheckoutEmoji(useCartFly = true) {
@@ -168,8 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.className = 'checkout-overlay';
     document.body.appendChild(overlay);
 
-    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 1800);
-    setTimeout(() => overlay.remove(), 1800);
+    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 1000);
+    setTimeout(() => overlay.remove(), 1200);
   }
 
   function animateCheckout() {
@@ -235,9 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
         category: card.dataset.productCategory || 'Lainnya'
       };
       addCartItem(product);
-      if (typeof triggerConfetti === 'function') {
-        triggerConfetti();
-      }
     });
   }
 
@@ -263,9 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
   checkoutButton?.addEventListener('click', () => {
     if (!cart.length) return;
     animateCheckout();
-    if (typeof triggerConfetti === 'function') {
-      triggerConfetti();
-    }
     cartDrawer.classList.add('checkout-done');
     setTimeout(() => {
       cart.length = 0;
@@ -274,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
       renderCart();
       cartDrawer.classList.remove('checkout-done');
-    }, 1800);
+    }, 850);
   });
 
   updateCartCount();
