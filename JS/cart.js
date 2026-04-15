@@ -187,11 +187,34 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => overlay.remove(), 1200);
   }
 
+  function createCheckoutText() {
+    const textContainer = document.createElement('div');
+    textContainer.className = 'checkout-text-container';
+    
+    const text = 'Terimakasih';
+    const syllables = ['Te', 'ri', 'ma', 'ka', 'sih'];
+    let textIndex = 0;
+    
+    syllables.forEach((syllable, idx) => {
+      syllable.split('').forEach((char) => {
+        const letter = document.createElement('span');
+        letter.className = 'checkout-letter';
+        letter.textContent = char;
+        letter.style.animationDelay = `${textIndex * 0.08}s`;
+        textContainer.appendChild(letter);
+        textIndex++;
+      });
+    });
+    
+    document.body.appendChild(textContainer);
+    setTimeout(() => textContainer.remove(), 2200);
+  }
+
   function animateCheckout() {
-    // Show thank you message instead of bell animation
-    if (typeof showCheckoutThankYou === 'function') {
-      showCheckoutThankYou();
-    }
+    // Show bell animation for checkout
+    createCheckoutEmoji(false);
+    // Show thank you text with per-letter animation
+    setTimeout(() => createCheckoutText(), 200);
   }
 
   function addButtonsToCards() {
