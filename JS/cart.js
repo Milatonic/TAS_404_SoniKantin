@@ -173,20 +173,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createCheckoutSparkles() {
-    const sparkleEmojis = ['✨', '💖', '⭐', '🌟'];
+    const sparkleEmojis = ['✨', '💖', '⭐', '🌟', '💫', '💝'];
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 12; i++) {
       setTimeout(() => {
         const sparkle = document.createElement('div');
         sparkle.className = 'checkout-sparkle';
         const emoji = sparkleEmojis[i % sparkleEmojis.length];
         sparkle.textContent = emoji;
         
-        // Circular pattern
-        const angle = (i / 8) * Math.PI * 2;
-        const distance = 180;
+        // Extended circular pattern with more sparkles
+        const angle = (i / 12) * Math.PI * 2;
+        const distance = 200 + Math.random() * 60;
         const x = Math.cos(angle) * distance;
         const y = Math.sin(angle) * distance;
         
@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sparkle.style.top = centerY + 'px';
         
         document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1400);
-      }, i * 80);
+        setTimeout(() => sparkle.remove(), 1800);
+      }, i * 60);
     }
   }
 
@@ -216,33 +216,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createScatteredEmojis() {
-    const foodEmojis = ['🍕', '🍔', '🍟', '🌮', '🍜', '🍲', '🥗', '🍱', '🍖', '🥘'];
-    const drinkEmojis = ['☕', '🥤', '🧋', '🍹', '🧉', '🥛', '🍷', '🍺'];
-    const allEmojis = [...foodEmojis, ...drinkEmojis];
+    const foodEmojis = ['🍕', '🍔', '🍟', '🌮', '🍜', '🍲', '🥗', '🍱', '🍖', '🥘', '🍝', '🥙'];
+    const drinkEmojis = ['☕', '🥤', '🧋', '🍹', '🧉', '🥛', '🍷', '🍺', '🧃', '🥃'];
+    const celebrationEmojis = ['🎉', '🎊', '🎈', '🎁', '🏆', '⚡', '🔥'];
+    const allEmojis = [...foodEmojis, ...drinkEmojis, ...celebrationEmojis];
     
-    // Create 12 scattered emojis around the text area
-    for (let i = 0; i < 12; i++) {
+    // Create 16 scattered emojis with better distribution
+    for (let i = 0; i < 16; i++) {
       setTimeout(() => {
         const emoji = document.createElement('div');
         emoji.className = 'checkout-scattered-emoji';
         emoji.textContent = allEmojis[Math.floor(Math.random() * allEmojis.length)];
         
-        // Random position scattered around center
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 80 + Math.random() * 120;
+        // Better radial distribution with random distance
+        const angle = (i / 16) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+        const distance = 100 + Math.random() * 150;
         const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance;
+        const y = Math.sin(angle) * distance - 30;
         
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         
         emoji.style.left = (centerX + x) + 'px';
         emoji.style.top = (centerY + y) + 'px';
-        emoji.style.setProperty('--delay', Math.random() * 0.3 + 's');
+        emoji.style.setProperty('--delay', Math.random() * 0.2 + 's');
         
         document.body.appendChild(emoji);
-        setTimeout(() => emoji.remove(), 1700);
-      }, i * 40);
+        setTimeout(() => emoji.remove(), 2000);
+      }, i * 30);
     }
   }
 
@@ -252,6 +253,16 @@ document.addEventListener('DOMContentLoaded', () => {
     textContainer.setAttribute('role', 'status');
     textContainer.setAttribute('aria-live', 'polite');
     
+    // Create success badge first
+    const badge = document.createElement('div');
+    badge.className = 'checkout-success-badge animate';
+    badge.textContent = '✓';
+    textContainer.appendChild(badge);
+    
+    // Create thank you text
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'checkout-message';
+    
     const text = 'Terima kasih!';
     let charIndex = 0;
     
@@ -260,29 +271,42 @@ document.addEventListener('DOMContentLoaded', () => {
       letter.className = 'checkout-letter';
       letter.textContent = char;
       letter.style.setProperty('--char-index', charIndex);
-      textContainer.appendChild(letter);
+      messageDiv.appendChild(letter);
       charIndex++;
     });
     
+    textContainer.appendChild(messageDiv);
     document.body.appendChild(textContainer);
     
-    // Fade out bersamaan dengan overlay dan emoji
+    // Trigger fade out after animation completes
     setTimeout(() => {
       textContainer.classList.add('fade-out');
-    }, 1600);
+    }, 1800);
     
     setTimeout(() => {
       textContainer.remove();
-    }, 2100);
+    }, 2300);
   }
 
   function animateCheckout() {
-    // Coordinated smooth animation sequence
+    // Coordinated smooth animation sequence with better timing
     createCheckoutSparkles();
-    setTimeout(() => createCheckoutOverlay(), 150);
+    setTimeout(() => createCheckoutOverlay(), 100);
     setTimeout(() => {
       createCheckoutText();
       createScatteredEmojis();
+    }, 400);
+    
+    // Trigger confetti if available
+    setTimeout(() => {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#FF6B6B', '#FFB347', '#FF8E72', '#FFA07A', '#FF9472']
+        });
+      }
     }, 500);
   }
 
@@ -366,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cart.length) return;
     animateCheckout();
     cartDrawer.classList.add('checkout-done');
+    // Close cart drawer and reset after animation
     setTimeout(() => {
       cart.length = 0;
       cartNote = '';
@@ -373,7 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
       renderCart();
       cartDrawer.classList.remove('checkout-done');
-    }, 850);
+      toggleCart(false);
+    }, 1200);
   });
 
   updateCartCount();
