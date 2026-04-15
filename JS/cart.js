@@ -98,14 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.forEach(item => {
       const card = document.createElement('div');
       card.className = 'cart-item';
+      const subtotal = item.price * item.qty;
       card.innerHTML = `
         <div class="cart-item-info">
           <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-meta">Harga: Rp ${formatRupiah(item.price)} • ${item.category}</div>
+          <div class="cart-item-meta">Rp ${formatRupiah(item.price)} × ${item.qty} = Rp ${formatRupiah(subtotal)}</div>
+          <div class="cart-item-category">${item.category}</div>
         </div>
         <div class="cart-item-qty">
           <button type="button" class="cart-item-remove" data-action="remove" data-name="${item.name}">Hapus</button>
-          <span>x${item.qty}</span>
         </div>
       `;
       cartItemsElement.appendChild(card);
@@ -187,12 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function animateCheckout() {
-    cartToggle.classList.add('checkout-active');
-    
-    // Use bell ring for cleaner, more dynamic animation
-    createCheckoutEmoji(false);
-    
-    setTimeout(() => cartToggle.classList.remove('checkout-active'), 800);
+    // Show thank you message instead of bell animation
+    if (typeof showCheckoutThankYou === 'function') {
+      showCheckoutThankYou();
+    }
   }
 
   function addButtonsToCards() {

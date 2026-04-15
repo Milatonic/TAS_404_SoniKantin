@@ -74,6 +74,42 @@ function showWelcomeMessage() {
   }, 2800);
 }
 
+function showCheckoutThankYou() {
+  const checkoutMessage = document.getElementById('checkout-message');
+  const checkoutLetters = document.getElementById('checkout-letters');
+  const checkoutEmojis = document.getElementById('checkout-emojis');
+  const text = 'Terima Kasih !';
+  const emojiArray = ['🍕', '🍔', '🍟', '☕', '🥤', '🍦'];
+
+  if (!checkoutLetters || !checkoutEmojis || !checkoutMessage) {
+    return;
+  }
+
+  checkoutLetters.innerHTML = '';
+  checkoutEmojis.innerHTML = '';
+  checkoutMessage.classList.add('show');
+
+  text.split('').forEach((char, index) => {
+    const letterEl = document.createElement('span');
+    letterEl.textContent = char;
+    letterEl.className = 'welcome-letter';
+    letterEl.style.animationDelay = `${index * 0.09}s`;
+    checkoutLetters.appendChild(letterEl);
+  });
+
+  emojiArray.forEach((emoji, index) => {
+    const emojiEl = document.createElement('span');
+    emojiEl.textContent = emoji;
+    emojiEl.className = 'welcome-emoji-block';
+    emojiEl.style.animationDelay = `${0.4 + index * 0.12}s`;
+    checkoutEmojis.appendChild(emojiEl);
+  });
+
+  setTimeout(() => {
+    checkoutMessage.classList.remove('show');
+  }, 2800);
+}
+
 function setActiveTab(targetId) {
   tabPanels.forEach(panel => {
     panel.classList.toggle("active", panel.id === targetId);

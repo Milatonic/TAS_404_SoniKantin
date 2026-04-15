@@ -66,7 +66,7 @@ body::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #7fb8ff 0%, #88c4ff 20%, #5da3e8 40%, #7fb8ff 60%, #88c4ff 80%, #6ba8ea 100%);
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 25%, #FFA07A 50%, #FFB347 75%, #FF9472 100%);
   background-size: 200% 200%;
   animation: splashGradient 3s ease infinite;
   z-index: 9999;
@@ -86,45 +86,10 @@ body::after {
   animation: slideBgSplash 8s linear infinite;
 }
 
-.splash-screen::after {
-  content: "🍕 🍔 🍟 ☕ 🥤 🍦";
-  position: absolute;
-  inset: 0;
-  font-size: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 40px;
-  opacity: 0.08;
-  pointer-events: none;
-  animation: splashEmojiBounce 6s ease-in-out infinite;
-  word-spacing: 40px;
-}
-
 @keyframes splashGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-
-@keyframes splashEmojiBounce {
-  0%, 100% { 
-    transform: translateY(0) scale(1);
-    opacity: 0.08;
-  }
-  25% { 
-    transform: translateY(-20px) scale(1.05);
-    opacity: 0.12;
-  }
-  50% { 
-    transform: translateY(0) scale(1);
-    opacity: 0.08;
-  }
-  75% { 
-    transform: translateY(15px) scale(0.95);
-    opacity: 0.1;
-  }
 }
 
 @keyframes slideBgSplash {
@@ -471,6 +436,7 @@ h3 {
 
 .header-text {
   flex: 1;
+  text-align: center;
 }
 
 .header-nav {
@@ -513,13 +479,37 @@ h3 {
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(127, 184, 255, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  position: relative;
-  z-index: 2;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
 }
 
 .cart-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 16px 32px rgba(127, 184, 255, 0.4);
+}
+
+@keyframes cartSlideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes cartSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
 }
 
 .cart-drawer {
@@ -535,10 +525,14 @@ h3 {
   display: flex;
   flex-direction: column;
   z-index: 9600;
+  animation: cartSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .cart-drawer.hidden {
-  display: none;
+  animation: cartSlideOut 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .cart-button span {
@@ -776,13 +770,12 @@ h3 {
 
 .checkout-emoji {
   position: fixed;
-  top: 50%;
   left: 50%;
-  font-size: 4.5rem;
+  bottom: 50%;
+  font-size: 3rem;
   pointer-events: none;
   z-index: 10001;
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 0 25px rgba(255, 107, 107, 0.7));
+  transform: translate(-50%, 50%);
 }
 
 .checkout-emoji.cart-fly {
@@ -790,36 +783,7 @@ h3 {
 }
 
 .checkout-emoji.bell-ring {
-  animation: bellRing 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.checkout-emoji.bell-ring::after {
-  content: '✨';
-  position: absolute;
-  font-size: 1.2rem;
-  right: -80px;
-  animation: glitterPulse 0.4s ease-in-out infinite;
-  filter: none;
-}
-
-.checkout-emoji.bell-ring::before {
-  content: '✨';
-  position: absolute;
-  font-size: 1.2rem;
-  left: -80px;
-  animation: glitterPulse 0.4s ease-in-out 0.2s infinite;
-  filter: none;
-}
-
-@keyframes glitterPulse {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  animation: bellRing 0.8s ease-in-out;
 }
 
 /* Checkout Screen Overlay */
@@ -828,13 +792,13 @@ h3 {
     backdrop-filter: blur(0px);
     background: transparent;
   }
-  15% {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 250, 240, 0.35);
+  20% {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
   }
-  85% {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 250, 240, 0.35);
+  80% {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
   }
   100% {
     backdrop-filter: blur(0px);
@@ -1609,10 +1573,9 @@ h3 {
 
 @keyframes emptyPulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+  50% { opacity: 0.5; }
 }
 
-/* Toast Notification */
 @keyframes toastSlideDown {
   from {
     opacity: 0;
@@ -1624,7 +1587,7 @@ h3 {
   }
 }
 
-@keyframes toastSlideOut {
+@keyframes toastSlideOutUp {
   from {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -1632,28 +1595,6 @@ h3 {
   to {
     opacity: 0;
     transform: translateX(-50%) translateY(-30px);
-  }
-}
-
-@keyframes toastSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(400px) rotate(10deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) rotate(0deg);
-  }
-}
-
-@keyframes toastSlideOut {
-  from {
-    opacity: 1;
-    transform: translateX(0) rotate(0deg);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(400px) rotate(-10deg);
   }
 }
 
@@ -1677,10 +1618,14 @@ h3 {
   animation: toastSlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   backdrop-filter: blur(10px);
   pointer-events: auto;
+  max-width: 90vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .toast-notification.hide {
-  animation: toastSlideOut 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: toastSlideOutUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .toast-icon {
