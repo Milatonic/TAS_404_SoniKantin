@@ -172,10 +172,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function createCheckoutEmoji(useCartFly = true) {
+  function createCheckoutSparkles() {
+    const sparkleEmojis = ['✨', '🎉', '💖', '⭐', '🌟', '💫', '🎊', '💝'];
+    const containerRect = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'checkout-sparkle';
+        const emoji = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+        sparkle.textContent = emoji;
+        
+        // Random angle in circle
+        const angle = (i / 12) * Math.PI * 2;
+        const distance = 150;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        
+        sparkle.style.setProperty('--tx', x + 'px');
+        sparkle.style.setProperty('--ty', y + 'px');
+        sparkle.style.left = containerRect.x + 'px';
+        sparkle.style.top = containerRect.y + 'px';
+        
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1200);
+      }, i * 60);
+    }
+  }
+
+  function createCheckoutEmoji() {
     const emoji = document.createElement('div');
-    emoji.className = `checkout-emoji ${useCartFly ? 'cart-fly' : 'bell-ring'}`;
-    emoji.textContent = useCartFly ? '🛒' : '🔔';
+    emoji.className = 'checkout-emoji bell-ring';
+    emoji.textContent = '🔔';
     document.body.appendChild(emoji);
 
     // Create overlay effect
@@ -183,38 +211,38 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.className = 'checkout-overlay';
     document.body.appendChild(overlay);
 
-    setTimeout(() => emoji.remove(), useCartFly ? 1200 : 1000);
-    setTimeout(() => overlay.remove(), 1200);
+    setTimeout(() => emoji.remove(), 1500);
+    setTimeout(() => overlay.remove(), 1500);
   }
 
   function createCheckoutText() {
     const textContainer = document.createElement('div');
     textContainer.className = 'checkout-text-container';
+    textContainer.setAttribute('role', 'status');
+    textContainer.setAttribute('aria-live', 'polite');
     
-    const text = 'Terimakasih';
-    const syllables = ['Te', 'ri', 'ma', 'ka', 'sih'];
-    let textIndex = 0;
+    const text = 'Terima kasih!';
+    let charIndex = 0;
     
-    syllables.forEach((syllable, idx) => {
-      syllable.split('').forEach((char) => {
-        const letter = document.createElement('span');
-        letter.className = 'checkout-letter';
-        letter.textContent = char;
-        letter.style.animationDelay = `${textIndex * 0.08}s`;
-        textContainer.appendChild(letter);
-        textIndex++;
-      });
+    text.split('').forEach((char) => {
+      const letter = document.createElement('span');
+      letter.className = 'checkout-letter';
+      letter.textContent = char;
+      letter.style.setProperty('--char-index', charIndex);
+      textContainer.appendChild(letter);
+      charIndex++;
     });
     
     document.body.appendChild(textContainer);
-    setTimeout(() => textContainer.remove(), 2200);
+    setTimeout(() => textContainer.remove(), 2500);
   }
 
   function animateCheckout() {
-    // Show bell animation for checkout
-    createCheckoutEmoji(false);
-    // Show thank you text with per-letter animation
-    setTimeout(() => createCheckoutText(), 200);
+    // Show sparkles and bell ring
+    createCheckoutSparkles();
+    createCheckoutEmoji();
+    // Show thank you text
+    setTimeout(() => createCheckoutText(), 300);
   }
 
   function addButtonsToCards() {
