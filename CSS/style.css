@@ -1860,6 +1860,177 @@ h3 {
   }
 }
 
+/* Checkout Modal Styling */
+@keyframes modalBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(30px);
+  }
+  50% {
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+}
+
+@keyframes messageSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.checkout-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10005;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.checkout-modal.show {
+  opacity: 1;
+}
+
+.checkout-modal-content {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 248, 240, 0.98));
+  border-radius: 28px;
+  padding: 32px 28px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 30px 80px rgba(255, 107, 107, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  animation: modalBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(10px);
+}
+
+.checkout-modal.show .checkout-modal-content {
+  animation: modalBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkout-modal:not(.show) .checkout-modal-content {
+  animation: modalFadeOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.checkout-modal-header {
+  text-align: center;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.checkout-success-icon {
+  font-size: 4rem;
+  animation: successBadgePulse 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkout-modal-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FFB347 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.checkout-modal-summary {
+  background: linear-gradient(135deg, rgba(255, 235, 205, 0.5), rgba(255, 250, 240, 0.5));
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 2px solid rgba(255, 107, 107, 0.15);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: #6b5b4f;
+  border-bottom: 1px solid rgba(255, 107, 107, 0.1);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-item span {
+  font-weight: 500;
+  color: #8b7355;
+}
+
+.summary-item strong {
+  font-weight: 800;
+  background: linear-gradient(135deg, #FF8E72 0%, #FFB347 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.1rem;
+}
+
+.checkout-modal-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-modal-message {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #5b4f47;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 180, 71, 0.08));
+  border-radius: 12px;
+  border-left: 4px solid rgba(255, 107, 107, 0.3);
+  animation: messageSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-fill-mode: both;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkout-modal-message:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.checkout-modal-message:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.checkout-modal-message:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
 @media (max-width: 420px) {
   .app-header {
     padding: 18px 14px 12px;
@@ -1872,5 +2043,17 @@ h3 {
   }
   .product-card img {
     height: 160px;
+  }
+  
+  .checkout-modal-content {
+    padding: 24px 20px;
+  }
+  
+  .checkout-modal-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .summary-item {
+    font-size: 0.9rem;
   }
 }

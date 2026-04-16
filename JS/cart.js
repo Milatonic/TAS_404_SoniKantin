@@ -282,6 +282,73 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2200);
   }
 
+  function createCheckoutModal() {
+    const modal = document.createElement('div');
+    modal.className = 'checkout-modal';
+    
+    const content = document.createElement('div');
+    content.className = 'checkout-modal-content';
+    
+    // Header dengan success badge
+    const header = document.createElement('div');
+    header.className = 'checkout-modal-header';
+    header.innerHTML = `
+      <div class="checkout-success-icon">✅</div>
+      <h2>Pesanan Dikonfirmasi!</h2>
+    `;
+    
+    // Order summary
+    const summary = document.createElement('div');
+    summary.className = 'checkout-modal-summary';
+    
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    
+    summary.innerHTML = `
+      <div class="summary-item">
+        <span>Jumlah Item:</span>
+        <strong>${totalItems} item</strong>
+      </div>
+      <div class="summary-item">
+        <span>Total Harga:</span>
+        <strong>Rp ${formatRupiah(totalPrice)}</strong>
+      </div>
+      ${cartNote ? `<div class="summary-item"><span>Catatan:</span><strong>${cartNote}</strong></div>` : ''}
+    `;
+    
+    // Messages
+    const messages = document.createElement('div');
+    messages.className = 'checkout-modal-messages';
+    const messageTexts = [
+      '🎉 Pesanan kamu sudah diterima!',
+      '⏱️ Pesanan sedang dipersiapkan...',
+      '🚀 Segera siap untuk diambil!'
+    ];
+    
+    messageTexts.forEach((msg, idx) => {
+      const msgEl = document.createElement('div');
+      msgEl.className = 'checkout-modal-message';
+      msgEl.textContent = msg;
+      msgEl.style.animationDelay = (0.3 + idx * 0.3) + 's';
+      messages.appendChild(msgEl);
+    });
+    
+    content.appendChild(header);
+    content.appendChild(summary);
+    content.appendChild(messages);
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+    
+    // Trigger animation in
+    setTimeout(() => modal.classList.add('show'), 50);
+    
+    // Fade out
+    setTimeout(() => {
+      modal.classList.remove('show');
+      setTimeout(() => modal.remove(), 400);
+    }, 2500);
+  }
+
   function animateCheckout() {
     // Coordinated smooth animation sequence with better timing
     createCheckoutSparkles();
@@ -289,6 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       createCheckoutText();
       createScatteredEmojis();
+      createCheckoutModal();
     }, 400);
     
     // Trigger confetti if available
