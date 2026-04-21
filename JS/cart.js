@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const emoji = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
     sparkle.textContent = emoji;
 
-    // Random position near screen edge
     const edge = Math.random() > 0.5 ? 'right' : 'left';
     const x = edge === 'right' ? window.innerWidth - 50 : 50;
     const y = Math.random() * window.innerHeight;
@@ -39,21 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
     sparkle.style.left = x + 'px';
     sparkle.style.top = y + 'px';
 
-    // Random direction
-    const tx = (Math.random() - 0.5) * 300;
-    const ty = (Math.random() - 0.5) * 300;
+    const tx = (Math.random() - 0.5) * 200;
+    const ty = (Math.random() - 0.5) * 200;
 
     sparkle.style.setProperty('--tx', tx + 'px');
     sparkle.style.setProperty('--ty', ty + 'px');
 
     document.body.appendChild(sparkle);
-
     setTimeout(() => sparkle.remove(), 800);
   }
 
   function triggerSparkles() {
-    for (let i = 0; i < 5; i++) {
-      setTimeout(() => createSparkle(), i * 100);
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => createSparkle(), i * 80);
     }
   }
 
@@ -173,20 +170,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createCheckoutSparkles() {
-    const sparkleEmojis = ['✨', '💖', '⭐', '🌟', '💫', '💝'];
+    const sparkleEmojis = ['✨', '💖', '⭐', '🌟'];
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 8; i++) {
       setTimeout(() => {
         const sparkle = document.createElement('div');
         sparkle.className = 'checkout-sparkle';
         const emoji = sparkleEmojis[i % sparkleEmojis.length];
         sparkle.textContent = emoji;
         
-        // Extended circular pattern with more sparkles
-        const angle = (i / 12) * Math.PI * 2;
-        const distance = 200 + Math.random() * 60;
+        const angle = (i / 8) * Math.PI * 2;
+        const distance = 150 + Math.random() * 40;
         const x = Math.cos(angle) * distance;
         const y = Math.sin(angle) * distance;
         
@@ -197,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.body.appendChild(sparkle);
         setTimeout(() => sparkle.remove(), 1800);
-      }, i * 60);
+      }, i * 50);
     }
   }
 
@@ -216,21 +212,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createScatteredEmojis() {
-    const foodEmojis = ['🍕', '🍔', '🍟', '🌮', '🍜', '🍲', '🥗', '🍱', '🍖', '🥘', '🍝', '🥙'];
-    const drinkEmojis = ['☕', '🥤', '🧋', '🍹', '🧉', '🥛', '🍷', '🍺', '🧃', '🥃'];
-    const celebrationEmojis = ['🎉', '🎊', '🎈', '🎁', '🏆', '⚡', '🔥'];
-    const allEmojis = [...foodEmojis, ...drinkEmojis, ...celebrationEmojis];
+    const foodEmojis = ['🍕', '🍔', '🍟', '�', '🍱'];
+    const drinkEmojis = ['☕', '🥤', '🧋', '🥛'];
+    const allEmojis = [...foodEmojis, ...drinkEmojis];
     
-    // Create 20 scattered emojis with explosive effect - like fireworks!
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 12; i++) {
       setTimeout(() => {
         const emoji = document.createElement('div');
         emoji.className = 'checkout-scattered-emoji';
         emoji.textContent = allEmojis[Math.floor(Math.random() * allEmojis.length)];
         
-        // Explosive radial distribution with more power
-        const angle = (i / 20) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
-        const distance = 150 + Math.random() * 180;
+        const angle = (i / 12) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+        const distance = 120 + Math.random() * 100;
         const x = Math.cos(angle) * distance;
         const y = Math.sin(angle) * distance - 50;
         
@@ -239,10 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         emoji.style.left = (centerX + x) + 'px';
         emoji.style.top = (centerY + y) + 'px';
-        emoji.style.setProperty('--delay', Math.random() * 0.15 + 's');
+        emoji.style.setProperty('--delay', Math.random() * 0.1 + 's');
         
         document.body.appendChild(emoji);
-        setTimeout(() => emoji.remove(), 2200);
+        setTimeout(() => emoji.remove(), 1800);
       }, i * 25);
     }
   }

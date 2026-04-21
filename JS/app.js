@@ -12,20 +12,10 @@ const productModalClose = document.getElementById("product-modal-close");
 let allProduk = [];
 
 if (splashScreen) {
-  const emojiArray = ['🍕', '🍔', '🍟', '🍰', '☕', '🥤', '🍦', '🍪'];
-  let emojiIndex = 0;
-  const logoIcon = splashScreen.querySelector('.logo-icon');
-  if (logoIcon) {
-    setInterval(() => {
-      emojiIndex = (emojiIndex + 1) % emojiArray.length;
-      logoIcon.textContent = emojiArray[emojiIndex];
-    }, 400);
-  }
-
   setTimeout(() => {
     splashScreen.classList.add("splash-hidden");
     showWelcomeMessage();
-  }, 4000);
+  }, 3000);
 
   const logoBubble = splashScreen.querySelector('.logo-bubble');
   if (logoBubble) {
@@ -41,11 +31,11 @@ function showWelcomeMessage() {
   const welcomeLetters = document.getElementById('welcome-letters');
   const welcomeEmojis = document.getElementById('welcome-emojis');
   const text = 'Selamat datang di Warung Bu Soni';
-  const emojiArray = ['🍕', '🍔', '🍟', '☕', '🥤', '🍦'];
+  const emojiArray = ['🍕', '🍔', '🍟'];
 
   if (!welcomeLetters || !welcomeEmojis) {
     welcomeMessage.classList.add('show');
-    setTimeout(() => welcomeMessage.classList.remove('show'), 2000);
+    setTimeout(() => welcomeMessage.classList.remove('show'), 1800);
     return;
   }
 
@@ -57,7 +47,7 @@ function showWelcomeMessage() {
     const letterEl = document.createElement('span');
     letterEl.textContent = char;
     letterEl.className = 'welcome-letter';
-    letterEl.style.animationDelay = `${index * 0.09}s`;
+    letterEl.style.animationDelay = `${index * 0.04}s`;
     welcomeLetters.appendChild(letterEl);
   });
 
@@ -65,13 +55,13 @@ function showWelcomeMessage() {
     const emojiEl = document.createElement('span');
     emojiEl.textContent = emoji;
     emojiEl.className = 'welcome-emoji-block';
-    emojiEl.style.animationDelay = `${0.4 + index * 0.12}s`;
+    emojiEl.style.animationDelay = `${0.2 + index * 0.1}s`;
     welcomeEmojis.appendChild(emojiEl);
   });
 
   setTimeout(() => {
     welcomeMessage.classList.remove('show');
-  }, 2800);
+  }, 2200);
 }
 
 function showCheckoutThankYou() {
@@ -144,11 +134,14 @@ function setTheme(category) {
 }
 
 function triggerConfetti() {
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
+  if (typeof confetti === 'function') {
+    confetti({
+      particleCount: 60,
+      spread: 60,
+      origin: { y: 0.6 },
+      colors: ['#FF6B6B', '#FFB347', '#FF8E72']
+    });
+  }
 }
 
 function renderProduk(produkItems) {

@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Pacifico&family=Quicksand:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Quicksand:wght@500;700&display=swap');
 
 body {
-  font-family: 'Quicksand', 'Fredoka', 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Quicksand', 'Fredoka', sans-serif;
   background: linear-gradient(135deg, #ffd8b2 0%, #fff2dd 55%, #fffaf5 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 12s ease infinite;
   padding: 0;
   margin: 0;
   color: #1f2937;
@@ -13,37 +11,14 @@ body {
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  backface-visibility: hidden;
 }
 
 body::before {
-  content: "🍊 🌟 🎉 🍌 ⭐ 🎈";
-  position: fixed;
-  top: -100px;
-  left: 0;
-  right: 0;
-  font-size: 3rem;
-  width: 100%;
-  white-space: nowrap;
-  animation: floatEmoji 20s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.08;
+  display: none;
 }
 
 body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.14) 0, rgba(255, 255, 255, 0.14) 8px, transparent 10px),
-    radial-gradient(circle at 80% 15%, rgba(255, 255, 255, 0.12) 0, rgba(255, 255, 255, 0.12) 6px, transparent 10px),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 16px),
-    repeating-linear-gradient(90deg, rgba(75, 140, 255, 0.07) 0 1px, transparent 1px 20px);
-  opacity: 0.24;
-  animation: waveLines 18s linear infinite;
+  display: none;
 }
 
 @keyframes headerGradientShift {
@@ -70,23 +45,15 @@ body::after {
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 25%, #FFA07A 50%, #FFB347 75%, #FF9472 100%);
-  background-size: 200% 200%;
-  animation: splashGradient 3s ease infinite;
   z-index: 9999;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
   opacity: 1;
   visibility: visible;
   overflow: hidden;
 }
 
 .splash-screen::before {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 30px 30px;
-  animation: slideBgSplash 8s linear infinite;
+  display: none;
 }
 
 @keyframes splashGradient {
@@ -216,7 +183,6 @@ body::after {
 .splash-logo {
   text-align: center;
   color: white;
-  animation: bounceLogo 0.6s ease infinite alternate, wiggleLogo 2s ease-in-out infinite;
   filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
   position: relative;
   z-index: 10;
@@ -235,13 +201,9 @@ body::after {
   margin: 0 auto 18px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #4a6ddb 0%, #3b5dcb 55%, #233d9d 100%);
-  box-shadow: 0 0 60px rgba(58, 88, 215, 0.65), 
-              0 0 110px rgba(66, 106, 238, 0.28),
-              inset -3px -3px 10px rgba(0, 0, 0, 0.12),
-              inset 3px 3px 10px rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 60px rgba(58, 88, 215, 0.65), 0 0 110px rgba(66, 106, 238, 0.28);
   position: relative;
   border: 4px solid rgba(255, 255, 255, 0.35);
-  animation: bubblePulse 1.5s ease-in-out infinite;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +213,6 @@ body::after {
   position: relative;
   font-size: 4rem;
   line-height: 1;
-  animation: emojiFloat 2.5s ease-in-out infinite;
 }
 
 .store-emoji.main {
@@ -353,7 +314,6 @@ body::after {
   align-items: center;
   border-radius: 12px;
   background: linear-gradient(135deg, #5b8dff, #82b6ff);
-  animation: jumpLetter 0.5s ease infinite;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
@@ -393,8 +353,6 @@ h3 {
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #cfe3ff 0%, #e6f0ff 55%, #fff6e5 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 12s ease infinite, fadeInUp 1s ease-out 0.5s both;
 }
 
 @keyframes fadeInUp {
@@ -405,8 +363,6 @@ h3 {
 .app-header {
   padding: 32px 18px 20px;
   background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 25%, #FFA07A 50%, #FFB347 75%, #FF9472 100%);
-  background-size: 400% 400%;
-  animation: headerGradientShift 15s ease infinite;
   color: white;
   box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
   position: relative;
@@ -415,18 +371,7 @@ h3 {
 }
 
 .app-header::before {
-  content: "✨ ✨ ✨ ✨ ✨";
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.9rem;
-  text-align: center;
-  letter-spacing: 20px;
-  animation: floatSparklesHeader 6s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.6;
+  display: none;
 }
 
 @keyframes floatSparklesHeader {
@@ -1315,13 +1260,13 @@ h3 {
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  display: none;
 }
 
 .floating-elements span {
   position: absolute;
   font-size: 2rem;
   opacity: 0.3;
-  animation: floatAround 10s ease-in-out infinite;
 }
 
 .floating-elements span:nth-child(1) {
@@ -1806,6 +1751,61 @@ h3 {
   to {
     opacity: 0;
     transform: translateX(-50%) translateY(-30px);
+  }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  @keyframes letterPop {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .checkout-letter {
+    animation: letterPop 0.4s ease forwards !important;
+  }
+  
+  .product-card:hover img {
+    transform: scale(1.02) rotate(0deg);
+  }
+  
+  .card {
+    transition: all 0.15s ease;
+  }
+  
+  .cart-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(127, 184, 255, 0.3);
+  }
+  
+  .app-main {
+    padding: 16px 14px 120px;
+  }
+  
+  .cart-drawer {
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    border-radius: 24px 24px 0 0;
+    max-height: 75vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .welcome-letter,
+  .welcome-emoji-block,
+  .checkout-letter,
+  .product-card,
+  .card,
+  .cart-drawer,
+  .product-modal-content {
+    animation: none !important;
+    transition: background-color 0.2s ease;
   }
 }
 
